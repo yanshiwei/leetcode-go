@@ -14,6 +14,7 @@ func find132pattern(nums []int) bool {
         for len(stack)>0&&nums[i]>stack[len(stack)-1] {
             //fron tail to loop so that second big is tail
             //find first big til and get second big
+            // this way to find firts big the condition is that we kown first big must be before
             secondBig=stack[len(stack)-1]
             stack=stack[0:len(stack)-1]//pop
         }
