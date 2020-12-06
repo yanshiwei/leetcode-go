@@ -7,6 +7,17 @@ func dailyTemperatures(T []int) []int {
     if len(T)<1 {
         return res
     }
+    //desc stack right bigger
+    var stackIndex []int
+    for i:=0;i<len(T);i++ {
+        for len(stackIndex)>0&&T[i]>T[stackIndex[len(stackIndex)-1]] {
+            headIndex:=stackIndex[len(stackIndex)-1]
+            res[headIndex]=i-headIndex
+            stackIndex=stackIndex[0:len(stackIndex)-1]//pop
+        }
+        stackIndex=append(stackIndex,i)
+    }
+    /*
     var last Info
     for i:=0;i<len(T);i++ {
         last=Info{Index:i,Data:T[i]}
@@ -20,5 +31,6 @@ func dailyTemperatures(T []int) []int {
             res[last.Index]=j-last.Index
         }
     }
+    */
     return res
 }
