@@ -5,6 +5,7 @@ func largestRectangleArea(heights []int) int {
     }
     heights=append(heights,0)//hanlde [1] case
     var st []int//asec stack get first smaller
+    //找到右边第一个更小的，此时就可以计算之前单增栈的最大矩形面积
     for i:=range heights {//单调增套路
         for len(st)>0&&heights[i]<=heights[st[len(st)-1]] {
             var headIndex=st[len(st)-1]
@@ -15,6 +16,7 @@ func largestRectangleArea(heights []int) int {
             if len(st)>0 {
                 area=head*(i-st[len(st)-1]-1)
             }else{
+                //一直都是增，第一个非增
                 area=head*i
             }
             res=max(res,area)
