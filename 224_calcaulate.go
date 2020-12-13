@@ -1,3 +1,5 @@
+    //有数字了就尝试及时计算保证+ - 的先后顺序
+    //有右括号了去左括号并及时计算保证括号优先顺序
 func calculate(s string) int {
     var res int
     var dataSt []int
