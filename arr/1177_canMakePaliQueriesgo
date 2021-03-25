@@ -1,0 +1,54 @@
+func canMakePaliQueries(s string, queries [][]int) []bool {
+    /*
+    按照题意，可以 重新排列 子串 s[left], ..., s[right]，重新排列这是重点，故
+    1.如果某个字符出现偶数次，则无需修该字符，我们只需要左边一个右边一个排列即可；
+    2.如果某个字符出现奇数次，则左右排列后，必然剩下一个字符无法匹配，则可能需要修改（修改其他奇数次字符，      或者修改自己从而配对）
+    因此，最后的目标便是：求解奇数次数字符的个数n，最后最n/2向下取整即为最终结果。
+    除2，是因为我们只需将其中一个改成另外一个奇数字符，即可完成配对。为何是向下取整呢？
+    由于前面能够配对的字符是一对存在的，因此n为奇数，则整个字符串的长度为奇数，对于奇数长度的回文串，最中间 那个元素是不需要配对的。因此最后的结果为n/2向下取整。
+
+    剩下的工作就是判断查询区间的字符串是否满足这种关系
+    如果每次查询都遍历字符串start到end各个字符的出现次数会时间超限，一个解决办法就是先打表
+    其中m[i][j]表示原字符串从索引0到第i个位置（也就是下标i-1），字符j（0-25）出现的次数
+    那么对于给定区间[start,end]，字符c出现的次数就为m[end+1][c]-m[start][c]
+    */
+    var res []bool
+    var sLen=len(s)
+    var m=make([][]int,sLen+1)
+    for i:=range m{
+        m[i]=make([]int,26)//26个小写字母
+    }
+    //m[i][j]表示原字符串从索引0到第i个位置，对应下标是i-1，字符j（0-25）出现的次数
+    for i:=1;i<=sLen;i++{
+        for j:=0;j<26;j++{
+            if int(s[i-1]-'a')==j{
+                m[i][j]=m[i-1][j]+1
+            }else{
+                m[i][j]=m[i-1][j]
+            }
+        }
+    }
+    //则给定区间[start,end]，字符c出现的次数就为m[end+1][c]-m[start][c]
+    for i:=0;i<len(queries);i++{
+        one:=queries[i]
+        start:=one[0]
+        end:=one[1]
+        k:=one[2]
+        //遍历字母出现的次数
+        var oddCnt int
+        for c:=0;c<26;c++{
+            characterCnt:=m[end+1][c]-m[start][c]//字母c出现的次数
+            if characterCnt%2==1{
+                //奇数个数
+                oddCnt++
+            }
+        }
+        //将多余的奇数变成偶数
+        if oddCnt/2<=k{
+            res=append(res,true)
+        }else{
+            res=append(res,false)
+        }
+    }
+    return res
+}
