@@ -1,0 +1,32 @@
+func findDiagonalOrder(nums [][]int) []int {
+    /*
+    记一个点在二维数组中的坐标为（r,c）
+    nums[r][c]
+    （1）位于一条左斜（八的一丿）的点们 共同点：r+c = 一个定值
+    （2）位于一条右斜（八的一捺）的点们 共同点：r-c = 一个定值  
+    本题就是（1）的规律,且 r + c = 0,1,2,3,4,5,6,7…,
+    */
+    var path [][]int//path 的取值就是r + c，r + c = 0,1,2,3,4,5,6,7…
+    var m=len(nums)
+    //注意不能n=nums[0]，因为每一行数目可能不一致
+    for i:=0;i<m;i++{
+        for j:=0;j<len(nums[i]);j++{
+            if i+j<len(path){
+                //i+j作为path的下标
+                path[i+j]=append(path[i+j],nums[i][j])
+            }else{
+                //第一次
+                tmp:=[]int{nums[i][j]}
+                path=append(path,tmp)
+            }
+        }
+    }
+    var res []int
+    for i:=range path{
+        oneDia:=path[i]
+        for j:=len(oneDia)-1;j>=0;j--{
+            res=append(res,oneDia[j])
+        }
+    }
+    return res
+}
