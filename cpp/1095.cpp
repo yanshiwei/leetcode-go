@@ -9,6 +9,14 @@
  */
 
 class Solution {
+    /*
+    在 0 < i < A.length - 1 条件下，存在 i 使得：
+A[0] < A[1] < ... A[i-1] < A[i]
+A[i] > A[i+1] > ... > A[A.length - 1]
+你将 不能直接访问该山脉数组，必须通过 MountainArray 接口来获取数据：
+MountainArray.get(k) - 会返回数组中索引为k 的元素（下标从 0 开始）
+MountainArray.length() - 会返回该数组的长度
+    */
 public:
     int findInMountainArray(int target, MountainArray &mountainArr) {
         // 1 find 峰值
