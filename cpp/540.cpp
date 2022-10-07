@@ -26,7 +26,7 @@ public:
                 mid--;
             }
             if(nums[mid]==nums[mid+1]){
-                // in the right
+                // in the right,因为left<right故mid不会等于nums.size()-1
                 left=mid+2;//由于是对偶数位进行二分查找，移动左边界时要加 2，而不是加 1
             }else{
                 // in the left include mid
