@@ -10,6 +10,7 @@ public:
     }
     // 在数组 nums 中，进行遍历，每遍历一个值利用其下标i，形成一个固定值 nums[i]
     int threeSumClosest(vector<int>& nums, int target) {
+        // init ans with head 3, 升序数组中，三元组的元素之和的最小值head 3 之和 
         int ans=nums[0]+nums[1]+nums[2];
         int n=nums.size();
         sort(nums.begin(),nums.end());
@@ -18,6 +19,7 @@ public:
             int left = i+1,right=nums.size()-1;
             while(left<right){
                 int sum= nums[left]+nums[right]+nums[i];
+                // 根据 sum = nums[i] + nums[start] + nums[end] 的结果，判断 sum 与目标 target 的距离，如果更近则更新结果 ans
                 if(abs(sum-target)<abs(target-ans))
                 ans=sum;
                 if(sum<target)
