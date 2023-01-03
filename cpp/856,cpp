@@ -1,0 +1,44 @@
+class Solution {
+    /*
+    给定一个平衡括号字符串 S，按下述规则计算该字符串的分数：
+() 得 1 分。
+AB 得 A + B 分，其中 A 和 B 是平衡括号字符串。
+(A) 得 2 * A 分，其中 A 是平衡括号字符串。
+    */
+public:
+    int scoreOfParentheses(string s) {
+        if(s.size()<2){
+            return 0;
+        }
+        stack<int>st;
+        for(auto c:s){
+            if(c=='('){
+                // 左括号直接压栈
+                st.push(0);
+            }else{
+                // 右括号开始计算
+                int cur=st.top();
+                int val=0;
+                if(cur>0){
+                    // 栈顶是数字，即(A)，栈顶元素乘2
+                    // 弹出数字和一个'('
+                    st.pop();
+                    st.pop();
+                    val=cur*2;
+                }else{
+                    // 栈顶是'('，即"()"，弹出'('后记为1
+                    st.pop();
+                    val=1;
+                }
+                // 此时栈顶还是数字，即"A+B"，两数相加 比如例子"()()" 此时栈顶是1
+                if(!st.empty()&&st.top()>0){
+                    val+=st.top();
+                    st.pop();
+                }
+                st.push(val);
+            }
+        }
+        // 最后栈里只剩唯一元素，就是最终结果
+        return st.top();
+    }
+};
