@@ -9,8 +9,8 @@ class Solution {
         若dpMax[i-1]>=0,则dpMax[i]=dpMax[i-1]*nums[i];
         若dpMax[i-1]<0,则dpMin[i]更小，则dpMax[i]=nums[i];
        nums[i]<0:
-        若dpMax[i-1]>=0,此时dpMax[i-1]*nums[i]<dpMin[i-1]*nums[i]，则dpMax[i]=dpMin[i-1]*nums[i];
-        若dpMax[i-1]<0,则dpMax[i]=dpMax[i-1]*nums[i];
+        若dpMax[i-1]>=0,此时dpMax[i-1]*nums[i]<dpMin[i-1]*nums[i]，则dpMax[i]=nums[i];
+        若dpMax[i-1]<0,则dpMin[i-1]小0，则dpMax[i]=dpMin[i-1]*nums[i];
        总之：
        dpMax[i]=max(dpMin[i-1]*nums[i],max(dpMax[i-1]*nums[i],nums[i]))
     对于dpMin[i]:
@@ -18,8 +18,8 @@ class Solution {
         若dpMin[i-1]>=0,则dpMin[i]=nums[i];
         若dpMin[i-1]<0，则dpMin[i]=dpMin[i-1]*nums[i];
      nums[i]<0:
-        若dpMin[i-1]>=0,此时dpMax[i-1]*nums[i]<dpMin[i-1]*nums[i]，则dpMin[i]=dpMax[i-1]*nums[i];
-        若dpMin[i-1]<0,则dpMin[i]=dpMax[i-1]*nums[i];
+        若dpMin[i-1]>=0,此时dpMax[i-1]>0，则dpMin[i]=dpMax[i-1]*nums[i];
+        若dpMin[i-1]<0,则dpMin[i]=nums[i];
        总之：
        dpMin[i]=min(dpMin[i-1]*nums[i],min(dpMax[i-1]*nums[i],nums[i]))
     */
