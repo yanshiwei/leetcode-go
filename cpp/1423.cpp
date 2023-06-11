@@ -7,7 +7,7 @@ class Solution {
     preSum[1]=preSum[0]+nums[0];
     ...
     preSum[i]=preSum[i-1]+nums[i-1];
-    则sum(i,j)=preSum[j]-preSum[i-1];
+    则sum(i,j)=preSum[j+1]-preSum[i];
     2.然后使用一个 0 ~ k 的遍历表示从左边拿走的元素数，然后根据窗口大小 windowSize = n - k ，利用 preSum 快速求窗口内元素之和
     3. 最大点数，也就是中间和最小
     */
@@ -24,7 +24,7 @@ public:
         int windowSize=n-k;
         for(int i=0;i<=k;i++){
             // 左边i个，右边k-i个，i取值0到k
-            // 当左边取i个（也就是cardPoints[0:i-1]，也就是preSum[i]），右边k-i个，中间窗口是[i+1,i+windowSize]
+            // 当左边取i个（也就是cardPoints[0:i-1]，也就是preSum[i]），右边k-i个，中间窗口是[i+1,i+windowSize-1]
             res=min(res,preSum[i+windowSize]-preSum[i]);
         }
         return preSum[n]-res;
