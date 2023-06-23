@@ -22,24 +22,27 @@ public:
         “比本身大的就接着扩展直到遇到比自己小的”这就是单调递减栈特性（从栈低到栈顶数值从小到大）
         本题目关键是找到每个柱子左右两边第一个小于本身的柱子，对应与单调递减栈。
         其实就是栈顶元素，和栈顶元素的前一个元素（左边第一个小于的元素）以及将要入栈的元素（右边第一个小于的元素）组成了该栈顶元素对应的面积最大值。
+        举例：heights = [2,1,5,6,2,3]
+        i=0时，左侧无最小（l=-1），右侧最小值位置是1故宽度为1，高arr[0]=2
+        i=1时，左侧无最小（l=-1），右侧无最小(r=size)故宽度为6，高arr[1]=1
+        i=2时，左侧最小值位置是1，右侧最小值位置是4故宽度为2，高arr[2]=5
+        i=3时，左侧最小值位置是2，右侧最小值位置是4故宽度为1，高arr[3]=6
+        i=4时，左侧最小值位置是1，右侧无最小(r=size)故宽度为4，高arr[4]=2
+        i=4时，左侧最小值位置是4，右侧无最小(r=size)故宽度为1，高arr[5]=3
         */
         stack<int>min_st;
-        heights.insert(heights.begin(),0);//让最后一个元素也参与计算
-        heights.push_back(0);//让最后一个元素也参与计算
+        heights.push_back(0);//为了确保全部计算，包括最后一个元素
         int res=0;
         for(int i=0;i<heights.size();i++){
             // 单调递减栈,如果栈为空或入栈元素值大于栈顶元素值则入栈
             if(min_st.empty()||(heights[min_st.top()]<heights[i])){
-                min_st.push(i);
-            }else if(heights[min_st.top()]==heights[i]){
-                min_st.pop();
                 min_st.push(i);
             }else{
                 // 如果入栈则会破坏栈的单调性，则需要把比入栈元素大的元素全部出栈
                 while(!min_st.empty()&&heights[min_st.top()]>heights[i]){
                     int mid=min_st.top();
                     min_st.pop();
-                    int left=min_st.top();//左边第一个小于的元素
+                    int left=min_st.empty()?-1:min_st.top();//左边第一个小于的元素
                     int right=i;//右边第一个小于的元素
                     int w=right-left-1;
                     int h=heights[mid];
