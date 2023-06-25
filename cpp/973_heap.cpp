@@ -11,7 +11,7 @@ public:
         if(k<1){
             return {};
         }
-        priority_queue<pair<int,int>>maxHeap;// pair first is distace, second is idx, default is vector and less<int>
+        priority_queue<pair<int,int>>maxHeap;// pair 默认大顶堆less<int>，也就是先比较first，first相同再比较第二个，（小于）.由于本题是距离最小TOPK，故first is distace, second is idx, default is vector and less<int>
         for(int i=0;i<points.size();i++){
             if(i<k){
                 // 构造大小k的堆
