@@ -28,6 +28,8 @@ public:
         int n=coins.size();
         vector<int>dp(amount+1,0);
         dp[0]=1;
+     //组合数mhttps://blog.csdn.net/qq_43530796/article/details/125410353
+     //不讲究顺序，先物品后总额
         for(int i=1;i<=coins.size();i++){
             // 完全背包，正序，正序保证了dp[i][j-t]已经更新
             int t=coins[i-1];
