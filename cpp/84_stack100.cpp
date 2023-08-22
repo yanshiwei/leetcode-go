@@ -30,22 +30,22 @@ public:
         i=4时，左侧最小值位置是1，右侧无最小(r=size)故宽度为4，高arr[4]=2
         i=4时，左侧最小值位置是4，右侧无最小(r=size)故宽度为1，高arr[5]=3
         */
-        stack<int>min_st;
-        heights.push_back(0);//为了确保全部计算，包括最后一个元素
         int res=0;
+        heights.push_back(0);//为了确保全部计算，这样栈内元素可以全部计算包括最后一个元素
+        stack<int>min_st;//从堆底到堆顶从小到大
         for(int i=0;i<heights.size();i++){
             // 单调递减栈,如果栈为空或入栈元素值大于栈顶元素值则入栈
-            if(min_st.empty()||(heights[min_st.top()]<heights[i])){
+            if(min_st.empty()||heights[min_st.top()]<heights[i]){
                 min_st.push(i);
             }else{
                 // 如果入栈则会破坏栈的单调性，则需要把比入栈元素大的元素全部出栈
-                while(!min_st.empty()&&heights[min_st.top()]>heights[i]){
-                    int mid=min_st.top();
+                while(!min_st.empty()&&heights[min_st.top()]>=heights[i]){
+                    int idx=min_st.top();
                     min_st.pop();
                     int left=min_st.empty()?-1:min_st.top();//左边第一个小于的元素
                     int right=i;//右边第一个小于的元素
                     int w=right-left-1;
-                    int h=heights[mid];
+                    int h=heights[idx];
                     res=max(res,w*h);
                 }
                 min_st.push(i);
