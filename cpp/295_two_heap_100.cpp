@@ -25,7 +25,7 @@ public:
                 maxHeap.push(num);
             }
             return;
-        }
+        } 
         // maxHeap.size()>minHeap.size()，判断大堆堆顶元素和x大小，若x更大，则x直接入小堆；若x更小，为了保证两个堆大小差距不大于1，先pop出大堆里最大元素放入小堆，然后入大堆；
         if(maxHeap.size()>minHeap.size()){
             if(maxHeap.top()<num){
@@ -37,7 +37,7 @@ public:
                 maxHeap.push(num);
             }
             return;
-        }   
+        }
         // maxHeap.size()<minHeap.size()，判断小堆堆顶元素和x大小，若x更小，则x直接入大堆；若x更大，为了保证两个堆大小差距不大于1，先pop出小堆里最小元素放入大堆，然后入小堆； 
         if(maxHeap.size()<minHeap.size()){
             if(minHeap.top()<num){
@@ -49,7 +49,7 @@ public:
                 maxHeap.push(num);
             }
             return;
-        }        
+        }
     }
     
     double findMedian() {
@@ -61,13 +61,13 @@ public:
         if((cnt&1)==1){
             // 奇数
             if(maxHeap.size()>minHeap.size()){
-                res=double(maxHeap.top());
+                res=maxHeap.top();
             }else{
-                res=double(minHeap.top());
+                res=minHeap.top();
             }
         }else{
             // 偶数
-            res=double(minHeap.top()-maxHeap.top())/2+maxHeap.top();
+            res=double(minHeap.top()-maxHeap.top())/2+maxHeap.top();//要转换成double否则报错
         }
         return res;
     }
