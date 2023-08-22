@@ -6,7 +6,7 @@ public:
 private:
     // 构造k大小堆，反复比较
     int findKthByMinHeap(vector<int>& nums, int k){
-        priority_queue<int,vector<int>,greater<int>>minHeap;
+        priority_queue<int,vector<int>,greater<int>>minHeap;//k大元素，小顶堆
         for(int i=0;i<nums.size();i++){
             if(i<k){
                 // 构造大小k的堆
@@ -45,12 +45,13 @@ private:
         }
     }
     // 构造堆
-    void buildHeap(vector<int>& nums){
+    void buildHeap(vector<int>&nums){
         // 从第一个非叶子结点开始
-        for(int i=nums.size()/2-1;i>=0;i--){
-            sift(nums,i,nums.size());
+        for(int i=nums.size()-1/2;i>=0;i--){
+            sift(nums, i,nums.size());
         }
     }
+    // 堆排序然后kth
     int findKthByMaxHeapSort(vector<int>& nums, int k){
         // 构建大顶堆
         buildHeap(nums);
