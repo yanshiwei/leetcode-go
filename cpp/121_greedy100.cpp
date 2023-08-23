@@ -9,17 +9,14 @@ public:
         if(prices.size()<2){
             return 0;
         }
-        int maxP=0x80000000;
+        int res=0x80000000;
         int minPrice=prices[0];
         for(int i=1;i<prices.size();i++){
-            //第二天开始才能卖
             if(minPrice>prices[i]){
                 minPrice=prices[i];
             }
-            if(maxP<prices[i]-minPrice){
-                maxP=prices[i]-minPrice;
-            }
+            res=max(res,prices[i]-minPrice);
         }
-        return maxP;
+        return res;
     }
 };
