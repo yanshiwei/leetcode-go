@@ -21,11 +21,15 @@ public:
             pos[s[i]-'a']=i;
         }
         vector<int>res;
+        // 区间位置
         int start=0;
         int end=0;
         for(int i=0;i<s.size();i++){
+            //对于每个字母s[i]，得当该字母最后一次出现的下标pos[s[i]]
+            //若下标超过当前区间end则更新
             end=max(end,pos[s[i]-'a']);
             if(i==end){
+                // 当遍历到下标end时，当前区间结束
                 res.push_back(end-start+1);
                 start=end+1;
             }
