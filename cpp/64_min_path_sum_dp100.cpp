@@ -14,13 +14,16 @@ public:
         if(n<1){
             return 0;
         }
-        // 第一行
-        for(int i=1;i<n;i++){
-            grid[0][i]+=grid[0][i-1];
+        //dp[i][j]从出发点到此处的最小和
+        //dp[i][j]=min(dp[i-1][j],dp[i][j-1])+grid[i][j];
+        // 这里可以直接在grid上操作，所以不需要单独建dp
+        // 第一行, 只从从左到右
+        for(int j=1;j<n;j++){
+            grid[0][j]+=grid[0][j-1];
         }
-        // 第一列
-        for(int j=1;j<m;j++){
-            grid[j][0]+=grid[j-1][0];
+        // 第一列, 只从上到下
+        for(int i=1;i<m;i++){
+            grid[i][0]+=grid[i-1][0];
         }
         for(int i=1;i<m;i++){
             for(int j=1;j<n;j++){
