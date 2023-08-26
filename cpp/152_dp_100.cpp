@@ -9,7 +9,9 @@ class Solution {
         若dpMax[i-1]>=0,则dpMax[i]=dpMax[i-1]*nums[i];
         若dpMax[i-1]<0,则dpMin[i]更小，则dpMax[i]=nums[i];
        nums[i]<0:
-        若dpMax[i-1]>=0,此时dpMax[i-1]*nums[i]<dpMin[i-1]*nums[i]，则dpMax[i]=nums[i];
+        若dpMax[i-1]>=0,此时（dpMin[i-1]要么>=0要么<0）dpMax[i-1]*nums[i]<dpMin[i-1]*nums[i]，
+            若dpMin[i-1]>=0, 则dpMax[i]=nums[i];
+            若dpMin[i-1]<0, 则dpMax[i]=dpMin[i-1]*nums[i];
         若dpMax[i-1]<0,则dpMin[i-1]小0，则dpMax[i]=dpMin[i-1]*nums[i];
        总之：
        dpMax[i]=max(dpMin[i-1]*nums[i],max(dpMax[i-1]*nums[i],nums[i]))
@@ -19,23 +21,25 @@ class Solution {
         若dpMin[i-1]<0，则dpMin[i]=dpMin[i-1]*nums[i];
      nums[i]<0:
         若dpMin[i-1]>=0,此时dpMax[i-1]>0，则dpMin[i]=dpMax[i-1]*nums[i];
-        若dpMin[i-1]<0,则dpMin[i]=nums[i];
+        若dpMin[i-1]<0,则
+            若dpMax[i-1]>=0, dpMin[i]=dpMax[i-1]*nums[i]
+            若dpMax[i-1]<0, dpMin[i]=nums[i];
        总之：
        dpMin[i]=min(dpMin[i-1]*nums[i],min(dpMax[i-1]*nums[i],nums[i]))
     */
 public:
     int maxProduct(vector<int>& nums) {
         int n=nums.size();
-        vector<int>dpMax(n,0);
+        vector<int>dpMax(n,0);//dp[i]以i结尾的最大子序列结果
         dpMax[0]=nums[0];
-        vector<int>dpMin(n,0);
-        dpMin[0]=nums[0];  
+        vector<int>dpMin(n,0);//dp[i]以i结尾的最小子序列结果
+        dpMin[0]=nums[0];
         int res=nums[0];
         for(int i=1;i<n;i++){
             dpMax[i]=max(dpMin[i-1]*nums[i],max(dpMax[i-1]*nums[i],nums[i]));
             dpMin[i]=min(dpMin[i-1]*nums[i],min(dpMax[i-1]*nums[i],nums[i]));
             res=max(res,dpMax[i]);
-        }      
+        }
         return res;
     }
 };
