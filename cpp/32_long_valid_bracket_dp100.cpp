@@ -12,10 +12,12 @@ public:
         int res=0;
         for(int i=1;i<n;i++){
             if(s[i]==')'){
-                // right bracket
-                if(s[i-1]=='('){
+                // 只有到right bracket时候才统计
+                if(s[i]=='('){
+                    //s[i-1]和s[i]是'()'
                     //保底长度有2，且要看s[i-2]是什么情况
                     if(i-2>=0){
+                        // 前面还有
                         dp[i]=dp[i-2]+2;
                     }else{
                         dp[i]=2;
@@ -23,12 +25,11 @@ public:
                 }else{
                     //s[i-1]和s[i]是'))'，以s[i-1]为结尾的最长有效长度为dp[i-1]，跨过这个长度来看s[i-dp[i-1]-1]这个字符：
                     if(i-1-dp[i-1]>=0&&s[i-1-dp[i-1]]=='('){
-                        //(dp[i-1])-->((...))
+                        // like (dp[i-1]), 也就是 ((...))
                         if(i-1-dp[i-1]-1>=0){
-                            //...(dp[i-1])
+                            // 前面还有
                             dp[i]=dp[i-1-dp[i-1]-1]+dp[i-1]+2;
                         }else{
-                            //(dp[i-1])
                             dp[i]=dp[i-1]+2;
                         }
                     }else{
@@ -36,9 +37,6 @@ public:
                         dp[i]=0;
                     }
                 }
-            }else{
-                // left bracket
-                dp[i]=0;
             }
             res=max(res,dp[i]);
         }
