@@ -1,10 +1,4 @@
 class RandomizedSet {
-    // map+vector
-    // map: insert erase count find empty size swap
-    //vector push_back insert
-    //.      pop_back insert
-    //.      at. front back
-    //.      empty size swap
 public:
     RandomizedSet() {
 
@@ -24,10 +18,12 @@ public:
             return false;
         }
         // 删除val，基于vector只能pop_back 交换arr最后一个元素，然后直接arr.pop_back
-        int idx=table[val];// idx of vector
-        int lastVal=arr.back();
-        table[lastVal]=idx;
-        arr[idx]=lastVal;
+        int idx=table[val];
+        int lastV=arr[arr.size()-1];
+        // set lastv to idx
+        table[lastV]=idx;
+        arr[idx]=lastV;
+        // pop last v
         table.erase(val);
         arr.pop_back();
         return true;
@@ -37,8 +33,8 @@ public:
         return arr[rand()%arr.size()];
     }
 private:
-    unordered_map<int,int>table;// key is val value is idx of arr
-    vector<int> arr;
+    unordered_map<int,int>table;// key is v, value is idx
+    vector<int>arr;// get random
 };
 
 /**
