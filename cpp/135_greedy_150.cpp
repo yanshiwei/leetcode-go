@@ -31,9 +31,6 @@ public:
                 candy[i-1]=candy[i]+1;
             }
         }
-                for(int i=0;i<n;i++){
-            cout<<candy[i]<<",";
-        }
         return accumulate(candy.begin(),candy.end(),0);//累加
     }
 };
